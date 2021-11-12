@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
 
 namespace MariElMarketplace.Controllers
 {
@@ -15,7 +14,7 @@ namespace MariElMarketplace.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<HomeController> _logger;
-        private static Context _database;
+        private readonly Context _database;
 
         public HomeController(ILogger<HomeController> logger, Context context,
             UserManager<IdentityUser> userManager)
