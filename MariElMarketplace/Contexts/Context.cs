@@ -8,6 +8,7 @@ namespace MariElMarketplace.Contexts
 
         public DbSet<Distance> Distances { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<IdentityRole> Roles { get; set; }
 
         public Context(DbContextOptions<Context> options) : base(options)
         {
