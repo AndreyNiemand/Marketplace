@@ -1,25 +1,25 @@
-﻿using MariElMarketplace.Models;
+﻿using Microsoft.Extensions.Logging;
+using MariElMarketplace.Contexts;
+using MariElMarketplace.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MariElMarketplace.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private static Context _database;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, Context context)
         {
+            _database = context;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
+            _database.SaveChanges();
             return View();
         }
 
