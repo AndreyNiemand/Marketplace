@@ -28,12 +28,17 @@ namespace MariElMarketplace.Models
 
         public string FermerId { get; set; }
 
+        /// <summary>
+        /// Населенный пункт
+        /// </summary>
         public string PlaceName { get; set; }
 
         /// <summary>
         /// Срок хранения
         /// </summary>
         public string ShelfLife { get; set; }
-        public string Application { get; internal set; }
+
+
+        public string Application { get; set; }
     }
 }

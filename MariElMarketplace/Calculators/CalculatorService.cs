@@ -19,6 +19,8 @@ namespace MariElMarketplace.Calculators
             _mapper = mapper;
         }
 
+        public List<Product> GetProductByFermerId(string id) => _context.Products.Where(x => x.FermerId == id)?.ToList();
+
         public Product GetProductById(int id) => _context.Products.FirstOrDefault(x => x.Id == id);
 
         public List<Product> GetByProductType(ProductTypeEnum category) 
