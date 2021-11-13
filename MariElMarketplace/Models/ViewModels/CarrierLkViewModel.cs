@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MariElMarketplace.Models.ViewModels
 {
     public class CarrierLkViewModel
     {
 
-        public List<Requests> MyProducts { get; set; }
-        public List<Requests> OtherProducts { get; set; }
+        public Dictionary<Product, Requests> MyProducts { get; set; }
+        public Dictionary<Product, Requests> OtherProducts { get; set; }
 
     }
+
 }

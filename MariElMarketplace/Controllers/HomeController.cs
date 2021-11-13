@@ -10,6 +10,7 @@ using MariElMarketplace.Calculators;
 using MariElMarketplace.Models.ViewModels;
 using MariElMarketplace.Helpers;
 using System.Security.Claims;
+using System.Collections.Generic;
 
 namespace MariElMarketplace.Controllers
 {
@@ -53,13 +54,30 @@ namespace MariElMarketplace.Controllers
         public IActionResult СarrierLk()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var myRequests = _database.Requests.ToList();
-            var myRequestsIds = myRequests.Select(x => x.Id);
-            var otherRequests = _database.Requests.Where(x=> !myRequestsIds.Contains(x.Id)).ToList();
+            var myRequestsIds = _database.Requests.Where(x => x.CarrierId == userId).Select(x => x.ProductId).ToList();
+            var otherRequestsId = _database.Requests.Where(x=> !myRequestsIds.Contains(x.Id) && x.IsActive == true).Select(x=>x.ProductId).ToList();
+
+            var myProducts = new Dictionary<Product, Requests>();
+            foreach (var id in myRequestsIds)
+            {
+                var product = _database.Products.FirstOrDefault(x => x.Id == id);
+                var reqvest = _database.Requests.FirstOrDefault(x => x.ProductId == id);
+                myProducts.Add(product, reqvest);
+            }
+
+            var otherProducts = new Dictionary<Product, Requests>();
+            foreach (var id in otherRequestsId)
+            {
+                var product = _database.Products.FirstOrDefault(x => x.Id == id);
+                var reqvest = _database.Requests.FirstOrDefault(x => x.ProductId == id);
+                otherProducts.Add(product, reqvest);
+
+            }
+
             var model = new CarrierLkViewModel
             {
-                MyProducts = myRequests,
-                OtherProducts = otherRequests
+                MyProducts = myProducts,
+                OtherProducts = otherProducts
             };
             return View(model);
         }
@@ -94,6 +112,26 @@ namespace MariElMarketplace.Controllers
             return View(models);
         }
 
+        public IActionResult CarrierNo(int requestId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var request = _database.Requests.FirstOrDefault(x => x.Id == requestId);
+            request.IsActive = true;
+            request.CarrierId = null;
+            _database.SaveChanges();
+            return Redirect("/Home/СarrierLk");
+        }
+
+        public IActionResult CarrierYes(int requestId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var request = _database.Requests.FirstOrDefault(x => x.Id == requestId);
+            request.IsActive = false;
+            request.CarrierId = userId;
+            _database.SaveChanges();
+            return Redirect("/Home/СarrierLk");
+        }
+
         public IActionResult Buy(int id, string toRegion)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -101,8 +139,9 @@ namespace MariElMarketplace.Controllers
             _database.Requests.Add(new Requests
             {
                 UserId = userId,
-                Product = product,
-                ToPlaceName = toRegion
+                ProductId = product.Id,
+                ToPlaceName = toRegion,
+                IsActive = true
             });
             _database.SaveChanges();
             return Content("Success!");
