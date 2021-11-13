@@ -49,7 +49,7 @@
                                 }
                                 @foreach (var suggestion in suggestions)
                                 {
-                                    <li><a href="/Home/Detail?id=@suggestion.Id">от @suggestion.Price руб. за @suggestion.MinBuyCount @EnumHelper.GetDescription(suggestion.Unit) из @suggestion.PlaceName</a></li>
+                                    <li><a href="/Home/Detail?id=@suggestion.Id">от @suggestion.Price руб. за @suggestion.MinBuyCount @EnumHelper.GetDescription(suggestion.Unit)</a></li>
                                 }
                             </ul>
                         </div>
