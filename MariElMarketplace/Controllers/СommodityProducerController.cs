@@ -62,7 +62,7 @@ namespace MariElMarketplace.Controllers
             _database.Products.Add(product);
             _database.SaveChanges();
 
-            return View();
+            return View(product);
         }
 
     }
