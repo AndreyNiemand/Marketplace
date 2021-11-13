@@ -1,6 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@using System.Linq;
+@using MariElMarketplace.Models.ViewModels
+@model HomeViewModel
 
 <div class="slider_area">
     <div class="single_slider  d-flex align-items-center slider_bg_1">
@@ -22,8 +25,6 @@
         <img src="img/banner/illustration.png" alt="">
     </div>
 </div>
-<!-- slider_area_end -->
-<!-- job_listing_area_start  -->
 <div class="job_listing_area">
     <div class="container">
         <div class="row align-items-center">
@@ -35,43 +36,21 @@
 
         </div>
         <div class="job_lists">
-            <div class="jobscenter row">
-                <div class="job-test col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_jobs justify-content-between">
-                        <div class="jobs_conetent">
-                            <img class="job-image" src="img/banner/testmilk.png" alt="">
-                            <h4 class="job-title">Молоко</h4>
-                            <p class="job-price">от 100 руб/л.</p>
-                            <a href="job_details.html" class="job-btn boxed-btn3 btn-catagory">Подробнее</a>
-                        </div>
-                    </div>
+            @{var counter = 0; }
+            @for (int i = 0; counter < Model.BestProductTypes.Count; i++)
+            {
+                <div class="jobscenter row">
+                    @for (int j = 0; j < 3 && counter < Model.BestProductTypes.Count; j++)
+                    {
+                        var model = Model.BestProductTypes.ElementAt(counter);
+                        <partial name="BestProductCard" model="model" />
+                        counter++;
+                    }
                 </div>
-                <div class="job-test col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_jobs justify-content-between">
-                        <div class="jobs_conetent">
-                            <img class="job-image" src="img/banner/testmilk.png" alt="">
-                            <h4 class="job-title">Молоко</h4>
-                            <p class="job-price">от 100 руб/л.</p>
-                            <a href="job_details.html" class="job-btn boxed-btn3 btn-catagory">Подробнее</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="job-test col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_jobs justify-content-between">
-                        <div class="jobs_conetent">
-                            <img class="job-image" src="img/banner/testmilk.png" alt="">
-                            <h4 class="job-title">Молоко</h4>
-                            <p class="job-price">от 100 руб/л.</p>
-                            <a href="job_details.html" class="job-btn boxed-btn3 btn-catagory">Подробнее</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </div>
-<!-- job_listing_area_end  -->
-<!-- popular_catagory_area_start  -->
 <div class="popular_catagory_area">
     <div class="container">
         <div class="row">
@@ -82,59 +61,21 @@
             </div>
         </div>
         <div class="row">
-            <div class="category-test col-lg-4 col-xl-3 col-md-6">
-                <div class="single_catagory">
-                    <div class="row">
-                        <img class="column1" src="img/banner/testmilk.png" alt="">
-                        <div class="column2">
-                            <a><h4>Молоко</h4></a>
-                            <p>Задача организации, в особенности же дальнейшее развитие различных форм деятельности позволяет оценить значение новых предложений. </p>
-                            <a href="job_details.html" class="boxed-btn3 btn-catagory">Подробнее</a>
-                        </div>
-                    </div>
+            @{var counterK = 0; }
+            @for (int i = 0; counterK < Model.BestProductTypes.Count; i++)
+            {
+                <div class="jobscenter row">
+                    @for (int j = 0; j < 3 && counterK < Model.BestProductTypes.Count; j++)
+                    {
+                        var model = Model.BestProductTypes.ElementAt(counterK);
+                        <partial name="Category" model="model.Value" />
+                        counterK++;
+                    }
                 </div>
-            </div>
-            <div class="category-test col-lg-4 col-xl-3 col-md-6">
-                <div class="single_catagory">
-                    <div class="row">
-                        <img class="column1" src="img/banner/testmilk.png" alt="">
-                        <div class="column2">
-                            <a><h4>Молоко</h4></a>
-                            <p>Задача организации, в особенности же дальнейшее развитие различных форм деятельности позволяет оценить значение новых предложений. </p>
-                            <a href="job_details.html" class="boxed-btn3 btn-catagory">Подробнее</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="category-test col-lg-4 col-xl-3 col-md-6">
-                <div class="single_catagory">
-                    <div class="row">
-                        <img class="column1" src="img/banner/testmilk.png" alt="">
-                        <div class="column2">
-                            <a><h4>Молоко</h4></a>
-                            <p>Задача организации, в особенности же дальнейшее развитие различных форм деятельности позволяет оценить значение новых предложений. </p>
-                            <a href="job_details.html" class="boxed-btn3 btn-catagory">Подробнее</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="category-test col-lg-4 col-xl-3 col-md-6">
-                <div class="single_catagory">
-                    <div class="row">
-                        <img class="column1" src="img/banner/testmilk.png" alt="">
-                        <div class="column2">
-                            <a><h4>Молоко</h4></a>
-                            <p>Задача организации, в особенности же дальнейшее развитие различных форм деятельности позволяет оценить значение новых предложений. </p>
-                            <a href="job_details.html" class="boxed-btn3 btn-catagory">Подробнее</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </div>
-<!-- popular_catagory_area_end  -->
-<!-- catagory_area -->
 <div class="catagory_area">
     <div class="container">
         <div class="row cat_search">
@@ -186,8 +127,6 @@
         </div>
     </div>
 </div>
-<!--/ catagory_area -->
-<!-- job_listing_area_start  -->
 <div class="job_listing_area job_listing_area2">
     <div class="container">
         <div class="row align-items-center">

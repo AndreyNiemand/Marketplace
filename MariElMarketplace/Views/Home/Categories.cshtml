@@ -1,0 +1,28 @@
+﻿@model List<Product> 
+
+<div class="job_listing_area">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="section_title">
+                    <h3>@Model.FirstOrDefault()?.SubType</h3>
+                </div>
+            </div>
+
+        </div>
+        <div class="job_lists">
+            @{var counter = 0; }
+            @for (int i = 0; counter < Model.Count; i++)
+            {
+                <div class="jobscenter row">
+                    @for (int j = 0; counter < Model.Count; j++)
+                    {
+                        var model = Model.ElementAt(counter);
+                        <partial name="ProductCard" model="model" />
+                        counter++;
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

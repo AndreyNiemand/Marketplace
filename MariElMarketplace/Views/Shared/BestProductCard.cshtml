@@ -1,0 +1,16 @@
+﻿@using MariElMarketplace.Helpers
+
+@model KeyValuePair<string, Product>
+
+@{var modell = Model.Value;} 
+
+<div class="job-test col-lg-4 col-xl-3 col-md-6">
+    <div class="single_jobs justify-content-between">
+        <div class="jobs_conetent">
+            <img class="job-image" src="img/banner/testmilk.png" alt="">
+            <h4 class="job-title">@modell.SubType</h4>
+            <p class="job-price">от @modell.Price руб. за @modell.MinBuyCount @EnumHelper.GetDescription(modell.Unit)</p>
+            <a href="/Home/Categories?subType=@modell.SubType" class="job-btn boxed-btn3 btn-catagory">Подробнее</a>
+        </div>
+    </div>
+</div>

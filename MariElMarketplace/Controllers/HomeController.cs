@@ -5,28 +5,48 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
+using MariElMarketplace.Calculators;
+using MariElMarketplace.Models.ViewModels;
 
 namespace MariElMarketplace.Controllers
 {
 
-    [Authorize]
     public class HomeController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly CalculatorService _calculatorService;
         private readonly ILogger<HomeController> _logger;
         private readonly Context _database;
 
-        public HomeController(ILogger<HomeController> logger, Context context,
-            UserManager<IdentityUser> userManager)
+        public HomeController(ILogger<HomeController> logger, Context context, CalculatorService calculatorService)
         {
             _database = context;
             _logger = logger;
-            _userManager = userManager;
+            _calculatorService = calculatorService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var products = _database.Products.ToList();
+            var bestPr = _calculatorService.GetBestProductTypes(products);
+            var model = new HomeViewModel
+            {
+                BestProductTypes = bestPr,
+                Products = products
+            };
+            return View(model);
+        }
+
+        public IActionResult Detail(int id)
+        {
+            var model = _calculatorService.GetBestSuggestions(id);
+            return View(model);
+        }
+
+        public IActionResult Categories(string subType)
+        {
+            var models = _calculatorService.GetProductBySubType(subType);
+            return View(models);
         }
 
         public IActionResult Privacy()
