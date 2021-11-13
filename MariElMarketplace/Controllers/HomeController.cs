@@ -11,6 +11,7 @@ using MariElMarketplace.Models.ViewModels;
 using MariElMarketplace.Helpers;
 using System.Security.Claims;
 using System.Collections.Generic;
+using AutoMapper;
 
 namespace MariElMarketplace.Controllers
 {
@@ -19,11 +20,14 @@ namespace MariElMarketplace.Controllers
     {
         private readonly CalculatorService _calculatorService;
         private readonly ILogger<HomeController> _logger;
+        private readonly IMapper _mapper;
         private readonly Context _database;
 
-        public HomeController(ILogger<HomeController> logger, Context context, CalculatorService calculatorService)
+        public HomeController(ILogger<HomeController> logger, Context context,
+            CalculatorService calculatorService, IMapper mapper)
         {
             _database = context;
+            _mapper = mapper;
             _logger = logger;
             _calculatorService = calculatorService;
         }
@@ -63,23 +67,30 @@ namespace MariElMarketplace.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var myRequestsIds = _database.Requests.Where(x => x.CarrierId == userId).Select(x => x.ProductId).ToList();
-            var otherRequestsId = _database.Requests.Where(x=> !myRequestsIds.Contains(x.Id) && x.IsActive == true).Select(x=>x.ProductId).ToList();
+            var otherRequestsId = _database.Requests.Where(x => !myRequestsIds.Contains(x.Id) && x.IsActive == true).Select(x => x.ProductId).ToList();
 
-            var myProducts = new Dictionary<Product, Requests>();
+            var myProducts = new Dictionary<ProductWithCarryPrice, Requests>();
             foreach (var id in myRequestsIds)
             {
                 var product = _database.Products.FirstOrDefault(x => x.Id == id);
                 var reqvest = _database.Requests.FirstOrDefault(x => x.ProductId == id);
-                myProducts.Add(product, reqvest);
+                var resMyProduct = _mapper.Map<ProductWithCarryPrice>(product);
+
+                var distance = _database.Distances.FirstOrDefault(x => x.From == product.PlaceName && x.To == reqvest.ToPlaceName);
+                resMyProduct.CarryPrice = distance.Km;
+                myProducts.Add(resMyProduct, reqvest);
             }
 
-            var otherProducts = new Dictionary<Product, Requests>();
+            var otherProducts = new Dictionary<ProductWithCarryPrice, Requests>();
             foreach (var id in otherRequestsId)
             {
                 var product = _database.Products.FirstOrDefault(x => x.Id == id);
                 var reqvest = _database.Requests.FirstOrDefault(x => x.ProductId == id);
-                otherProducts.Add(product, reqvest);
+                var otherMyProduct = _mapper.Map<ProductWithCarryPrice>(product);
 
+                var distance = _database.Distances.FirstOrDefault(x => x.From == product.PlaceName && x.To == reqvest.ToPlaceName);
+                otherMyProduct.CarryPrice = distance.Km;
+                otherProducts.Add(otherMyProduct, reqvest);
             }
 
             var model = new CarrierLkViewModel
