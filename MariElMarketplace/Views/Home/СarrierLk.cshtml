@@ -1,0 +1,32 @@
+﻿@using MariElMarketplace.Models.ViewModels
+@model CarrierLkViewModel
+
+@{var counterK = 0; }
+
+    <h1>Ваши активные заказы</h1>
+@if (Model.MyProducts != null && Model.MyProducts.Any())
+{
+    @for (int i = 0; counterK < Model.MyProducts.Count; i++)
+    {
+        <div class="row">
+            @for (int j = 0; j < 3 && counterK < Model.MyProducts.Count; j++)
+            {
+                var modell = Model.MyProducts.ElementAt(counterK);
+                <div class="jobs_left d-flex align-items-center">
+                        <div class="thumb">
+                            <img src="img/svg_icon/1.svg" alt="">
+                        </div>
+                        <div class="jobs_conetent">
+                            <h4>@modell.Product.Title</h4>
+                            <div class="links_locat d-flex align-items-center">
+                                <div class="location">
+                                    <p><i class="fa fa-map-marker"></i>@modell.ToPlaceName</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                counterK++;
+            }
+        </div>
+    }
+}

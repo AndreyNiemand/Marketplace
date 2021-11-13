@@ -1,4 +1,24 @@
-﻿<!DOCTYPE html>
+﻿@using MariElMarketplace.Contexts;
+@using MariElMarketplace.Models;
+@using System.Security.Claims;
+@using System.Linq;
+@using MariElMarketplace.Calculators
+@inject CalculatorService calculatorService
+@inject Context context
+
+@{
+    var roleType = Role.Customer;
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    if (userId != null)
+    {
+        var role = context.Roles.FirstOrDefault(x => x.UserId == userId);
+        if (role != null)
+        {
+            roleType = role.Role;
+        }
+    }
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -43,6 +63,7 @@
                                         <ul id="navigation">
                                             <li><a href="/Home">Главная</a></li>
                                             <li><a href="/Home/Catalog">Каталог</a></li>
+                                            <li><a href="/Home/@roleType.ToString()Lk/">Личный кабинет</a></li>
                                         </ul>
                                     </nav>
                                 </div>
