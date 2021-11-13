@@ -14,6 +14,8 @@ namespace MariElMarketplace.Models
 
         public string ToPlaceName { get; set; }
 
+        public string FromPlaceName { get; set; }
+
         public bool IsActive { get; set; } = false;
 
         public string CarrierId { get; set; }
