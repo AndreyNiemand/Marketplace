@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using MariElMarketplace.Calculators;
 using MariElMarketplace.Models.ViewModels;
+using MariElMarketplace.Helpers;
 
 namespace MariElMarketplace.Controllers
 {
@@ -39,8 +40,15 @@ namespace MariElMarketplace.Controllers
 
         public IActionResult Detail(int id)
         {
+            var test = EnumHelper.GetAllValuesWithDescription<ProductTypeEnum>();
             var model = _calculatorService.GetBestSuggestions(id);
             return View(model);
+        }
+
+        public IActionResult MainCategories(ProductTypeEnum category)
+        {
+            var models = _calculatorService.GetByProductType(category);
+            return View(models);
         }
 
         public IActionResult Categories(string subType)

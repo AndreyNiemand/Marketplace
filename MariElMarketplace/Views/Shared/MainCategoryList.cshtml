@@ -1,0 +1,13 @@
+﻿@using MariElMarketplace.Helpers
+
+@{
+    var categories = EnumHelper.GetAllValuesWithDescription<ProductTypeEnum>();
+}
+
+<span>Категории:</span>
+<ul>
+    @foreach (var item in categories)
+    {
+        <li><a href="/Home/MainCategories?category=@item.Value">@item.Key</a></li>
+    }
+</ul>

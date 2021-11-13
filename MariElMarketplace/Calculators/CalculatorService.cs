@@ -21,6 +21,10 @@ namespace MariElMarketplace.Calculators
 
         public Product GetProductById(int id) => _context.Products.FirstOrDefault(x => x.Id == id);
 
+        public List<Product> GetByProductType(ProductTypeEnum category) 
+            => _context.Products.Where(x => x.ProductType == category).ToList();
+
+
         public DetailViewModel GetBestSuggestions(int id)
         {
             var thisProduct = _mapper.Map<ProductWithCarryPrice>(GetProductById(id));
