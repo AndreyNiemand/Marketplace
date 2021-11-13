@@ -1,3 +1,7 @@
 ﻿body {
     margin-top: 90px;
 }
+
+.job_details_area .single_jobs .jobs_left .thumb {
+    padding: 0px;
+}
