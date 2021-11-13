@@ -149,6 +149,7 @@ namespace MariElMarketplace.Controllers
                 UserId = userId,
                 ProductId = product.Id,
                 ToPlaceName = toRegion,
+                FromPlaceName = product.PlaceName,
                 IsActive = true
             });
             _database.SaveChanges();
