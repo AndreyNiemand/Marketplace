@@ -3298,6 +3298,10 @@ h3 {
   background: #FFFEF5;
 }
 
+.job_listing_area .margin_top{
+  margin-top: 100px;
+}
+
 .job_listing_area2 {
       padding: 100px 0;
   padding-bottom: 80px;

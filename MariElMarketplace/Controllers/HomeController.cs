@@ -31,7 +31,15 @@ namespace MariElMarketplace.Controllers
         public IActionResult СommodityProducerLk()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return View();
+            var role = _database.Roles.FirstOrDefault(x => x.UserId == userId);
+            if (role == null || role.Role != Role.СommodityProducer)
+            {
+                return NotFound();
+            }
+
+            var products = _calculatorService.GetProductByFermerId(userId);
+
+            return View("~/Views/СommodityProducer/Index.cshtml", products);
         }
 
         public IActionResult CustomerLk()
