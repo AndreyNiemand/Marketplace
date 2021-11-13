@@ -26,7 +26,7 @@ namespace MariElMarketplace.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var role = _database.Roles.FirstOrDefault(x => x.UserId == userId);
-            if (role != null && role.Role != Role.Customer && role.Role != Role.Сarrier)
+            if (role == null || role.Role != Role.СommodityProducer)
             {
                 return NotFound();
             }
@@ -40,7 +40,7 @@ namespace MariElMarketplace.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var role = _database.Roles.FirstOrDefault(x => x.UserId == userId);
-            if (role != null && role.Role != Role.Customer && role.Role != Role.Сarrier)
+            if (role == null || role.Role != Role.СommodityProducer)
             {
                 return NotFound();
             }
@@ -53,7 +53,7 @@ namespace MariElMarketplace.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var role = _database.Roles.FirstOrDefault(x => x.UserId == userId);
-            if (role != null && role.Role != Role.Customer && role.Role != Role.Сarrier)
+            if (role == null || role.Role != Role.СommodityProducer)
             {
                 return NotFound();
             }
