@@ -7,14 +7,13 @@
     <div class="row align-items-center">
         <div class="col-lg-6">
             <div class="section_title">
-                <h3>Welcome СommodityProducer!</h3>
                 <h3>Форма добавления новго продукта</h3>
             </div>
         </div>
     </div>
     <form action="/СommodityProducer/AddProduct">
         <label for="title" class="wow fadeInLeft">Наименование</label><br>
-        <input type="text" name="title" class="wow fadeInLeft" required/><br>
+        <input type="text" name="title" class="wow fadeInLeft" required /><br>
 
         <label for="productType" class="wow fadeInLeft">Категория продукта</label><br>
         <select name="productType" required>
@@ -25,7 +24,7 @@
         </select><br>
 
         <label for="subType" class="wow fadeInLeft">Подкатегория продукта</label><br>
-        <input type="text" name="subType" class="wow fadeInLeft" required/><br>
+        <input type="text" name="subType" class="wow fadeInLeft" required /><br>
 
         <label for="unit" class="wow fadeInLeft">Мера</label><br>
         <select name="unit" required>
@@ -36,20 +35,23 @@
         </select><br>
 
         <label for="count" class="wow fadeInLeft">Количество</label><br>
-        <input type="number" name="count" class="wow fadeInLeft" required/><br>
+        <input type="number" name="count" class="wow fadeInLeft" required /><br>
 
         <label for="minBuyCount" class="wow fadeInLeft">Минимальное количество</label><br>
-        <input type="number" name="minBuyCount" class="wow fadeInLeft" required/><br>
+        <input type="number" name="minBuyCount" class="wow fadeInLeft" required /><br>
 
         <label for="price" class="wow fadeInLeft">Цена</label><br>
-        <input type="number" name="price" class="wow fadeInLeft" required/><br>
+        <input type="number" name="price" class="wow fadeInLeft" required /><br>
 
         <label for="placeName" class="wow fadeInLeft">Населенный пункт</label><br>
-        <input type="text" name="placeName" class="wow fadeInLeft" required/><br>
+        <input type="text" name="placeName" class="wow fadeInLeft" required /><br>
 
         <label for="shelfLife" class="wow fadeInLeft">Время хранения</label><br>
-        <input type="text" name="shelfLife" class="wow fadeInLeft" required/><br><br>
+        <input type="text" name="shelfLife" class="wow fadeInLeft" required /><br>
 
-        <input type="submit" value="Submit">
+        <label for="description" class="wow fadeInLeft">Описание продукта</label><br>
+        <textarea rows="5" cols="80" name="description"></textarea><br><br>
+
+        <input type="submit" value="Добавить продукт" class="job-btn boxed-btn3 btn-catagory"><br>
     </form>
 </div>
